@@ -16,7 +16,7 @@ import { NgIf } from '@angular/common';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonButton, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonImg, IonThumbnail, IonLabel, IonItem, IonButtons, IonMenuButton, IonMenu, NgIf],
+  imports: [IonButton, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonImg, IonThumbnail, IonLabel, IonItem, IonButtons, IonMenuButton, IonMenu, NgIf ],
 })
 export class HomePage {
 
@@ -41,11 +41,15 @@ export class HomePage {
   }
 
   async LoadSettings() {
+
+    console.log("1")
     let localizacaoSelecionada = this.globalConfigService.getGlobalSetting("localizacaoSelecionada")
     let nomeCidade = this.globalConfigService.getGlobalSetting("nomeCidade")
     let weather: WeatherRoot
     this.showError = false
-    await this.loadingService.presentLoading()
+    console.log("2")
+    //await this.loadingService.presentLoading()
+    console.log("3")
 
     try {
       if (localizacaoSelecionada === "pegarLocalizacaoAtual" || localizacaoSelecionada == null || localizacaoSelecionada == undefined) {
@@ -59,11 +63,11 @@ export class HomePage {
       this.LoadWeather(weather)
 
     } catch (e: any) {
-      this.toastService.showErrorToast(e.message)
+      await this.toastService.showErrorToast(e.message)
       this.showError = true
     }
     finally{
-      await this.loadingService.dismissLoading()
+      //await this.loadingService.dismissLoading()
     }
   }
 
