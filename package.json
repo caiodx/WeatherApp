@@ -21,6 +21,8 @@
     "@angular/platform-browser": "^18.0.0",
     "@angular/platform-browser-dynamic": "^18.0.0",
     "@angular/router": "^18.0.0",
+    "@awesome-cordova-plugins/core": "^6.7.0",
+    "@awesome-cordova-plugins/geolocation": "^6.7.0",
     "@ionic/angular": "^8.0.0",
     "@ionic/cordova-builders": "^11.0.0",
     "ionicons": "^7.2.1",
@@ -44,6 +46,7 @@
     "@typescript-eslint/parser": "^6.0.0",
     "cordova-android": "^13.0.0",
     "cordova-plugin-device": "2.0.2",
+    "cordova-plugin-geolocation": "^5.0.0",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
     "cordova-plugin-ionic-webview": "^5.0.0",
     "cordova-plugin-splashscreen": "5.0.2",
@@ -68,7 +71,11 @@
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {},
-      "cordova-plugin-ionic-keyboard": {}
+      "cordova-plugin-ionic-keyboard": {},
+      "cordova-plugin-geolocation": {
+        "GEOLOCATION_USAGE_DESCRIPTION": "To locate you",
+        "GPS_REQUIRED": "true"
+      }
     },
     "platforms": [
       "android"

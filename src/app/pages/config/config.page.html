@@ -1,0 +1,30 @@
+<div class="ion-page" id="main-content">
+
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button (click)="voltarPaginaAnterior()">Voltar</ion-button>
+      </ion-buttons>
+      <ion-title>Configurações</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content [fullscreen]="true">
+    <ion-list>
+      <ion-list-header>Localização</ion-list-header>
+      <form>
+        <ion-radio-group (ionChange)="ChangeLocationType($event)" [value]="localizacaoSelecionada">
+          <ion-radio  value="pegarLocalizacaoAtual"></ion-radio>
+          <ion-label>Localização atual</ion-label>
+          <ion-radio  value="definirCidade"></ion-radio>
+          <ion-label>Definir cidade</ion-label>         
+        </ion-radio-group>
+
+        <ion-item *ngIf="localizacaoSelecionada === 'definirCidade'">
+          <ion-input type="text" [value]="nomeCidade" (ionChange)="ChangeCity($event)"></ion-input>
+        </ion-item>
+      </form>
+    </ion-list>
+  </ion-content>
+
+</div>
