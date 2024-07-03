@@ -46,7 +46,6 @@ export class ConfigPage implements OnInit {
   saveSettings(){
     this.globalConfigService.saveGlobalSetting("localizacaoSelecionada", this.localizacaoSelecionada)
     this.globalConfigService.saveGlobalSetting("nomeCidade", this.nomeCidade)
-    console.log(this.nomeCidade)
   }
 
   LoadSettings(){
