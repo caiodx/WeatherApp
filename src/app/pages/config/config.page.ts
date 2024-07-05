@@ -1,25 +1,38 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonButton, IonCheckbox, IonList, IonListHeader, IonItem, IonLabel, IonRadio, IonRadioGroup, IonInput } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonButton, IonCheckbox, IonList, IonListHeader, IonItem, IonLabel, IonRadio, IonRadioGroup, IonInput, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
 import { GlobalConfigService } from 'src/app/services/global-config.service';
 import { NavController } from '@ionic/angular';
+import { FavoriteCitiesComponent } from 'src/app/components/favorites/favorite-cities.component';
+import { NgIf, NgFor } from '@angular/common';
+
+interface FavoriteCity {
+  name: string;
+}
 
 @Component({
   selector: 'app-config',
   templateUrl: './config.page.html',
   styleUrls: ['./config.page.scss'],
   standalone: true,
-  imports: [IonInput, IonRadioGroup, IonCheckbox, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButtons, IonBackButton, IonList, IonListHeader, IonItem, IonLabel, IonRadio]
+  imports: [IonInput, IonRadioGroup, IonCheckbox, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButtons, IonBackButton, IonList, IonListHeader, IonItem, IonLabel, IonRadio, FavoriteCitiesComponent, IonSelect, IonSelectOption, NgIf, NgFor]
 })
 export class ConfigPage implements OnInit {
 
   localizacaoSelecionada: string = 'pegarLocalizacaoAtual'; // Opção inicial
-  public nomeCidade: string = 'teste';
+  public nomeCidade: string = '';
+  favoriteCities: FavoriteCity[] = [];
 
   constructor(private globalConfigService: GlobalConfigService, public navCtrl: NavController) { }
 
   ngOnInit() {
+    this.favoriteCities = JSON.parse(localStorage.getItem('favoriteCities') || '[]');
+    console.log(this.favoriteCities)
+  }
+
+  ionViewDidEnter() {
+    this.nomeCidade = "aef"
   }
 
   voltarPaginaAnterior() {
@@ -31,8 +44,8 @@ export class ConfigPage implements OnInit {
   }
 
   ChangeCity(event: CustomEvent) {
-    
-    this.nomeCidade = event.detail.value
+    console.log(event)
+    // this.nomeCidade = event.detail.value
   }
 
   ionViewWillEnter() {

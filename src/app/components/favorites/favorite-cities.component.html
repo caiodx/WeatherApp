@@ -1,0 +1,37 @@
+<!-- <ion-header [translucent]="true">
+    <ion-navbar>
+      <ion-title>Cidades Favoritas</ion-title>
+    </ion-navbar>
+  </ion-header> -->
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Cidades Favoritas</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-input [value]="newCityName" (ionChange)="ChangeCityNameEvent($event)" type="text"
+        placeholder="Nome da Cidade"></ion-input>
+      <ion-button (click)="addCity()" type="button" color="primary">Adicionar</ion-button>
+    </ion-card-content>
+
+    <ion-list class="favorite-cities-list">
+      <ion-list-header>Minhas Cidades</ion-list-header>
+      <ion-item *ngFor="let city of favoriteCities">
+        <ion-grid>
+          <ion-row>
+            <ion-col col-auto><ion-text>{{ city.name }} </ion-text> </ion-col>
+            <ion-col col-auto>
+            </ion-col>
+            <ion-col col-auto>
+              <ion-button (click)="removeCity(city)" color="danger">Excluir</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+
+  </ion-card>
+
+
+</ion-content>

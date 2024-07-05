@@ -6,7 +6,7 @@
         <ion-button (click)="voltarPaginaAnterior()">Voltar</ion-button>
       </ion-buttons>
       <ion-title>Configurações</ion-title>
-    </ion-toolbar>
+    </ion-toolbar>  
   </ion-header>
 
   <ion-content [fullscreen]="true">
@@ -21,10 +21,17 @@
         </ion-radio-group>
 
         <ion-item *ngIf="localizacaoSelecionada === 'definirCidade'">
-          <ion-input type="text" [value]="nomeCidade" (ionChange)="ChangeCity($event)"></ion-input>
+          <!-- <ion-input type="text" [value]="nomeCidade" (ionChange)="ChangeCity($event)"></ion-input> -->
+          <ion-select [value]="nomeCidade" id="mySelect" label="Selecione uma cidade" (ionChange)="ChangeCity($event)">
+            <ion-select-option *ngFor="let city of favoriteCities" value="{{ city.name }}">{{ city.name }}</ion-select-option>
+          </ion-select>
         </ion-item>
       </form>
     </ion-list>
+
+    <app-favorite-cities></app-favorite-cities>
+
+    
   </ion-content>
 
 </div>
