@@ -67,6 +67,8 @@ export class HomePage {
     let forecast: ForeCastRoot
     this.showError = false
     //await this.loadingService.presentLoading()
+
+    console.log(this.localizacaoSelecionada)
   
     try {
       if (this.localizacaoSelecionada === "pegarLocalizacaoAtual" || this.localizacaoSelecionada == null || this.localizacaoSelecionada == undefined) {
@@ -96,8 +98,6 @@ export class HomePage {
     this.countryCode = weather.sys.country
     this.weatherDegrees = Math.floor(weather.main.temp)
 
-    console.log(foreCast.list[0].dt)
-
     this.forecastDegrees1 = Math.floor(foreCast.list[1].temp.day)
     this.forecastDegrees2 = Math.floor(foreCast.list[2].temp.day)
     this.forecastDegrees3 = Math.floor(foreCast.list[3].temp.day)
@@ -107,7 +107,6 @@ export class HomePage {
     this.forecastConditionDescription1 = foreCast.list[1].weather[0].main
     this.forecastConditionDescription2 = foreCast.list[2].weather[0].main
     this.forecastConditionDescription3 = foreCast.list[3].weather[0].main
-
     this.forecastDayNumber1 = this.obterDiaDaDataAPI(foreCast.list[1].dt)
     this.forecastDayNumber2 = this.obterDiaDaDataAPI(foreCast.list[2].dt)
     this.forecastDayNumber3 = this.obterDiaDaDataAPI(foreCast.list[3].dt)
@@ -135,7 +134,7 @@ export class HomePage {
   ChangeLocationType(event: CustomEvent) {
     this.localizacaoSelecionada = event.detail.value
     this.saveSettings("localizacaoSelecionada", this.localizacaoSelecionada );
-    if (this.localizacaoSelecionada === "pegarLocalizacaoAtual"){
+    if (this.localizacaoSelecionada === "pegarLocalizacaoAtual" || (this.nomeCidade !== "" && this.nomeCidade !== null && this.nomeCidade !== undefined)){
       this.LoadSettings()
     }
     

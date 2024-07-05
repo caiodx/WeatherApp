@@ -56,7 +56,6 @@ export class ConfigPage implements OnInit {
   }
 
   ionViewWillLeave(){
-    this.saveSettings()
   }
 
   saveSettings(){
