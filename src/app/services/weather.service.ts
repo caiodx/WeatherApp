@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
 import { WeatherRoot } from '../model/weater.model';
 import { environment } from '../../environments/environment';
+import { ForeCastRoot } from '../model/forecast.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WeatherService {
-
-  private readonly API_KEY: string = ''
   private readonly WEATHER_ENDPOINT: string = ''
 
   constructor() {
-    this.API_KEY = environment.openweather.apikey
     this.WEATHER_ENDPOINT = environment.openweather.endpoint
   }
 
@@ -32,6 +30,31 @@ export class WeatherService {
     if (response.ok) {
       const data = await response.json()
       return data as WeatherRoot
+    } else {
+      if (response.status == 404) {
+        throw new Error('Cidade não encontrada.')
+      } else
+        throw new Error('Falha ao buscar dados do clima.')
+    }
+  }
+
+  async GetForeCastByCoord(lat: number, lon: number): Promise<ForeCastRoot> {
+    const url = `${this.WEATHER_ENDPOINT}/forecast-coord?lat=${lat}&lon=${lon}`   
+    const response = await this.executaFetch(url, 'GET')
+    if (response.ok) {
+      const data = await response.json()
+      return data as ForeCastRoot
+    } else {
+      throw new Error('Falha ao buscar dados do clima.')
+    }
+  }
+
+  async GetForeCastByCity(cityName: string): Promise<ForeCastRoot> {
+    const url = `${this.WEATHER_ENDPOINT}/forecast-city?city=${cityName}`
+    const response = await fetch(url)
+    if (response.ok) {
+      const data = await response.json()
+      return data as ForeCastRoot
     } else {
       if (response.status == 404) {
         throw new Error('Cidade não encontrada.')

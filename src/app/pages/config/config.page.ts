@@ -27,8 +27,11 @@ export class ConfigPage implements OnInit {
   constructor(private globalConfigService: GlobalConfigService, public navCtrl: NavController) { }
 
   ngOnInit() {
+    this.LoadFavoriteCities()
+  }
+
+  LoadFavoriteCities(){
     this.favoriteCities = JSON.parse(localStorage.getItem('favoriteCities') || '[]');
-    console.log(this.favoriteCities)
   }
 
   ionViewDidEnter() {

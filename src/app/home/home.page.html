@@ -32,7 +32,24 @@
     </ion-toolbar>
   </ion-header> -->
 
-    <div id="container" >
+    <div id="container">
+
+      <form>
+        <ion-radio-group (ionChange)="ChangeLocationType($event)" [value]="localizacaoSelecionada">
+          <ion-radio value="pegarLocalizacaoAtual"></ion-radio>
+          <ion-label>Localização atual</ion-label>
+          <ion-radio value="definirCidade"></ion-radio>
+          <ion-label>Definir cidade</ion-label>
+        </ion-radio-group>
+
+        <ion-item *ngIf="localizacaoSelecionada === 'definirCidade'">
+          <!-- <ion-input type="text" [value]="nomeCidade" (ionChange)="ChangeCity($event)"></ion-input> -->
+          <ion-select [value]="nomeCidade" id="mySelect" label="Selecione uma cidade" (ionChange)="ChangeCity($event)">
+            <ion-select-option *ngFor="let city of favoriteCities" value="{{ city.name }}">{{ city.name
+              }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </form>
       <!-- <strong>Ready to create an app?</strong>
     <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p> -->
       <ion-card *ngIf="showError === false">
@@ -45,6 +62,31 @@
               <ion-img src="https://openweathermap.org/img/wn/{{weatherConditionCode}}@2x.png"></ion-img>
             </ion-thumbnail>
             <ion-label>{{weatherDegrees}}° - {{weatherConditionDescription}}</ion-label>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+      <ion-card *ngIf="showError === false">
+        <ion-card-header>
+          <ion-card-title>Previsao próximos dias</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-item>
+            <ion-grid>
+              <ion-row>
+                <ion-col col-auto>
+                  <ion-img src="https://openweathermap.org/img/wn/{{forecastConditionCode1}}@2x.png"></ion-img>
+                  Dia {{forecastDayNumber1}} - {{forecastDegrees1}}° {{forecastConditionDescription1}}
+                </ion-col>
+                <ion-col col-auto>
+                  <ion-img src="https://openweathermap.org/img/wn/{{forecastConditionCode2}}@2x.png"></ion-img>
+                  Dia {{forecastDayNumber2}} - {{forecastDegrees2}}° {{forecastConditionDescription2}}
+                </ion-col>
+                <ion-col col-auto>
+                  <ion-img src="https://openweathermap.org/img/wn/{{forecastConditionCode3}}@2x.png"></ion-img>
+                  Dia {{forecastDayNumber3}} - {{forecastDegrees3}}° {{forecastConditionDescription3}}
+                </ion-col>
+              </ion-row>
+            </ion-grid>
           </ion-item>
         </ion-card-content>
       </ion-card>
