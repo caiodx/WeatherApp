@@ -12,7 +12,7 @@ export class GeoLocationService {
     try {
       return await this.geolocation.getCurrentPosition()
     } catch {
-      throw new Error('Não foi possível obter coordenadas de GPS, verifique suas permissões.')
+      throw new Error('Não foi possível obter coordenadas de GPS.')
     }
 
   }

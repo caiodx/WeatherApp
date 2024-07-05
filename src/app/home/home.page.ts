@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonImg, IonThumbnail, IonLabel, IonItem, IonButtons, IonMenuButton, IonMenu, IonButton } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonImg, IonThumbnail, IonLabel, IonItem, IonButtons, IonMenuButton, IonMenu, IonButton, IonToast } from '@ionic/angular/standalone';
 import { Platform } from '@ionic/angular';
 import { GeoLocationService } from '../services/geoLocation.service';
 import { Geoposition } from '@awesome-cordova-plugins/geolocation/ngx';
@@ -16,7 +16,7 @@ import { NgIf } from '@angular/common';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonButton, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonImg, IonThumbnail, IonLabel, IonItem, IonButtons, IonMenuButton, IonMenu, NgIf ],
+  imports: [IonButton, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonImg, IonThumbnail, IonLabel, IonItem, IonButtons, IonMenuButton, IonMenu, NgIf, IonToast ],
 })
 export class HomePage {
 
@@ -27,8 +27,6 @@ export class HomePage {
   public weatherConditionDescription?: string = "Sun"
   public weatherDegrees?: number
   public showError: boolean = false
-  
-
 
   constructor(private platform: Platform, private geoLocationService: GeoLocationService, private weatherService: WeatherService, private router: Router, private globalConfigService: GlobalConfigService, private toastService: ToastService, private loadingService: LoadingService) {
     this.platform.ready().then(() => {
@@ -42,15 +40,12 @@ export class HomePage {
 
   async LoadSettings() {
 
-    console.log("1")
     let localizacaoSelecionada = this.globalConfigService.getGlobalSetting("localizacaoSelecionada")
     let nomeCidade = this.globalConfigService.getGlobalSetting("nomeCidade")
     let weather: WeatherRoot
     this.showError = false
-    console.log("2")
     //await this.loadingService.presentLoading()
-    console.log("3")
-
+  
     try {
       if (localizacaoSelecionada === "pegarLocalizacaoAtual" || localizacaoSelecionada == null || localizacaoSelecionada == undefined) {
         this.geoLocationPosition = await this.geoLocationService.GetPosition()
@@ -63,8 +58,8 @@ export class HomePage {
       this.LoadWeather(weather)
 
     } catch (e: any) {
-      await this.toastService.showErrorToast(e.message)
       this.showError = true
+      await this.toastService.showErrorToast(e.message)
     }
     finally{
       //await this.loadingService.dismissLoading()

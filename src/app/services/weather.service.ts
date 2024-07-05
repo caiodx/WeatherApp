@@ -8,8 +8,7 @@ import { environment } from '../../environments/environment';
 export class WeatherService {
 
   private readonly API_KEY: string = ''
-  private readonly WEATHER_ENDPOINT: string = 'https://api.openweathermap.org/data/2.5/weather'
-  private readonly UNITS: string = "metric"
+  private readonly WEATHER_ENDPOINT: string = ''
 
   constructor() {
     this.API_KEY = environment.openweather.apikey
@@ -17,8 +16,8 @@ export class WeatherService {
   }
 
   async GetWeatherByCoord(lat: number, lon: number): Promise<WeatherRoot> {
-    const url = `${this.WEATHER_ENDPOINT}?lat=${lat}&lon=${lon}&appid=${this.API_KEY}&units=${this.UNITS}`
-    const response = await fetch(url)
+    const url = `${this.WEATHER_ENDPOINT}/coord?lat=${lat}&lon=${lon}`   
+    const response = await this.executaFetch(url, 'GET')
     if (response.ok) {
       const data = await response.json()
       return data as WeatherRoot
@@ -28,7 +27,7 @@ export class WeatherService {
   }
 
   async GetWeatherByCity(cityName: string): Promise<WeatherRoot> {
-    const url = `${this.WEATHER_ENDPOINT}?q=${cityName}&appid=${this.API_KEY}&units=${this.UNITS}`
+    const url = `${this.WEATHER_ENDPOINT}/city?city=${cityName}`
     const response = await fetch(url)
     if (response.ok) {
       const data = await response.json()
@@ -39,6 +38,13 @@ export class WeatherService {
       } else
         throw new Error('Falha ao buscar dados do clima.')
     }
+  }
+
+  async executaFetch(url: string, type: string = "GET", body: any = null): Promise<Response> {    
+    const response = await fetch(url, {
+      method: type,
+    })
+    return response
   }
 
 }

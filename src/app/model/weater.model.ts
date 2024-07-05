@@ -13,6 +13,8 @@ export interface WeatherRoot {
     id: number
     name: string
     cod: number
+    success: boolean
+    message: string
   }
   
   export interface Coord {
