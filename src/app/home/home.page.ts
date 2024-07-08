@@ -11,6 +11,7 @@ import { ToastService } from '../services/toast.service';
 import { LoadingService } from '../services/loading.service';
 import { NgIf, NgFor } from '@angular/common';
 import { ForeCastRoot } from '../model/forecast.model';
+import { MenuController } from '@ionic/angular';
 
 interface FavoriteCity {
   name: string;
@@ -48,18 +49,17 @@ export class HomePage {
   public forecastConditionCode3?: string = "01d"
   favoriteCities: FavoriteCity[] = [];
 
-  constructor(private platform: Platform, private geoLocationService: GeoLocationService, private weatherService: WeatherService, private router: Router, private globalConfigService: GlobalConfigService, private toastService: ToastService, private loadingService: LoadingService) {
+  constructor(private platform: Platform, private geoLocationService: GeoLocationService, private weatherService: WeatherService, private router: Router, private globalConfigService: GlobalConfigService, private toastService: ToastService, private menuController: MenuController) {
     this.platform.ready().then(() => {
       console.log("device ready!")
     })
   }
 
   async ionViewWillEnter() {
-    this.LoadSettings()
+   this.LoadSettings()
   }
 
   async LoadSettings() {
-
     this.localizacaoSelecionada = this.globalConfigService.getGlobalSetting("localizacaoSelecionada")
     this.nomeCidade = this.globalConfigService.getGlobalSetting("nomeCidade")
     this.LoadFavoriteCities()
@@ -124,10 +124,10 @@ export class HomePage {
   }
 
   async GetGeoPosition() {
-    this.geoLocationPosition = await this.geoLocationService.GetPosition()
+    this.geoLocationPosition = await this.geoLocationService.GetPosition()    
   }
 
-  GotoPage(route: string) {
+  async GotoPage(route: string) {
     this.router.navigateByUrl(`/${route}`)
   }
 

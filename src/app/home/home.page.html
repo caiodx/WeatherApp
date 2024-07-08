@@ -1,4 +1,4 @@
-<ion-menu contentId="main-content">
+<ion-menu contentId="main-content" id="menuSide">
   <ion-header>
     <ion-toolbar>
       <ion-title>Menu</ion-title>
@@ -36,10 +36,9 @@
 
       <form>
         <ion-radio-group (ionChange)="ChangeLocationType($event)" [value]="localizacaoSelecionada">
-          <ion-radio value="pegarLocalizacaoAtual"></ion-radio>
-          <ion-label>Localização atual</ion-label>
-          <ion-radio value="definirCidade"></ion-radio>
-          <ion-label>Definir cidade</ion-label>
+          <ion-radio labelPlacement="end" value="pegarLocalizacaoAtual">Localização atual</ion-radio>
+          &nbsp;
+          <ion-radio labelPlacement="end" value="definirCidade">Definir cidade</ion-radio>
         </ion-radio-group>
 
         <ion-item *ngIf="localizacaoSelecionada === 'definirCidade'">
@@ -67,7 +66,7 @@
       </ion-card>
       <ion-card *ngIf="showError === false">
         <ion-card-header>
-          <ion-card-title>Previsao próximos dias</ion-card-title>
+          <ion-card-title>Próximos dias</ion-card-title>
         </ion-card-header>
         <ion-card-content>
           <ion-item>
