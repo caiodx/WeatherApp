@@ -11,11 +11,13 @@ export class GlobalConfigService {
   }
 
   getGlobalSetting(key: string): any {
-    const value = localStorage.getItem(key)   
-    if (value?.toString() !== "undefined"){
+    const value = localStorage.getItem(key)
+    console.log(value) 
+    if (value?.toString() !== "undefined" && value?.toString() !== null && value?.toString() !== undefined ){
       return JSON.parse(value?.toString() ?? "")
+    }else{
+      return null
     }
-    return  null
   }
 
   removeGlobalSetting(key: string): void {

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonImg, IonThumbnail, IonLabel, IonItem, IonButtons, IonMenuButton, IonMenu, IonButton, IonToast, IonRadioGroup, IonRadio, IonSelect, IonSelectOption, IonGrid, IonRow, IonCol, IonText } from '@ionic/angular/standalone';
 import { Platform } from '@ionic/angular';
 import { GeoLocationService } from '../services/geoLocation.service';
-import { Geoposition } from '@awesome-cordova-plugins/geolocation/ngx';
+import { Geolocation, Position } from '@capacitor/geolocation';
 import { WeatherService } from '../services/weather.service';
 import { Router } from '@angular/router';
 import { WeatherRoot } from '../model/weater.model';
@@ -26,7 +26,7 @@ interface FavoriteCity {
 })
 export class HomePage {
 
-  private geoLocationPosition?: Geoposition = undefined
+  private geoLocationPosition?: Position = undefined
   public cityName?: string = "Lisbon"
   public countryCode?: string = "PT"
   public weatherConditionCode?: string = "01d"
@@ -57,6 +57,8 @@ export class HomePage {
 
   async ionViewWillEnter() {
    this.LoadSettings()
+
+   
   }
 
   async LoadSettings() {

@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Geolocation, Geoposition } from '@awesome-cordova-plugins/geolocation/ngx';
+import { Geolocation, Position } from '@capacitor/geolocation';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GeoLocationService {
-  constructor(private geolocation: Geolocation) {
+  constructor() {
   }
 
-  async GetPosition(): Promise<Geoposition> {
+  async GetPosition(): Promise<Position> {
     try {
-      return await this.geolocation.getCurrentPosition()
+      return await Geolocation.getCurrentPosition()
     } catch {
       throw new Error('Não foi possível obter coordenadas de GPS.')
     }

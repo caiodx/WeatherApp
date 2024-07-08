@@ -6,7 +6,6 @@ import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalo
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 import { environment } from './environments/environment';
-import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 
 if (environment.production) {
   enableProdMode();
@@ -17,6 +16,5 @@ bootstrapApplication(AppComponent, {
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
-    Geolocation
   ],
 });
